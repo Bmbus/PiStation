@@ -1,0 +1,2 @@
+pynongo
+Adafruit_DHT
