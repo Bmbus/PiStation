@@ -1,3 +1,4 @@
 pynongo
 Adafruit_DHT
 git+https://github.com/dbader/schedule
+flask
