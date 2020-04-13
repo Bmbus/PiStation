@@ -3,14 +3,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PiStation</title>
+    <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <header>PiStation - Dashboard</header>
+    <center>
     <div class="main">
-        <div class="humadity">
+        <div class="data">
             <h3>{{ hum }}</h3>
-        </div>
-        <div class="temperature">
             <h3>{{ temp }}</h3>
         </div>
         <div class="plot">
@@ -18,5 +18,6 @@
         </div>
         <a href="/raw_data">See raw data</a>
     </div>
+</center>
 </body>
 </html>
