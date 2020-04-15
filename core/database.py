@@ -1,39 +1,34 @@
-from pymongo import MongoClient
-from CONFIG import CONNECTION, CLUSTER, DB
+import mysql.connector as mysql
 
 
-class DbClient:
-    """CREATES A CONNECTION TO YOUR DATABASE"""
+class Database:
     def __init__(self):
-        cluster = MongoClient(CONNECTION)
-        db = cluster[CLUSTER]
-        self.collection = db[DB]
-
-    def __call__(self, *args, **kwargs):
-        return self.collection
-
-
-class Database(DbClient):
-    def init_db(self):
         try:
-            self.collection.insert_one(self.db_layout())
-            return
-        except:
-            return
-
-    def delete_db(self):
+            self.connector = mysql.connect(
+                host: "127.0.0.1",
+                user: "root",
+                database: "Tomato",
+                #password: "your_passwrd"
+            )
+            self.cursor = self.connector.cursor()
+            self.connector.commit()
+        except Exception as err:
+            print(f"<DATABASE>-Error {err}")
+    
+    def check_connection(self):
+        return self.connector is not None and self.connector.is_connected()
+    
+    def setup(self):
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS data (
+            id INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
+            humidity INT NOT NULL,
+            temperature INT NOT NULL,
+            created_at DATETIME NOT NULL
+        );""")
+        self.connector.commit()
+    
+    def execute(self, query, values=()):
         try:
-            self.collection.delete_one({"_id": 00})
-            return
-        except:
-            return
-
-
-    def db_layout(self):
-        default_data = {
-            "_id": 00,
-            "humidity": [],
-            "temp": []
-        }
-
-        return default_data
+            self.cursor.execute(query, values)
+        except Exception as err:
+            print(f"<DATABASE>-Error: {err}")
