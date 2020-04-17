@@ -2,22 +2,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PiStation</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="static/style.css">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Tomato</title>
+    {% endif %}
 </head>
+<header>
+    <center><h1>{{ title }}</h1></center>
+</header>
 <body>
-    <header>PiStation - Dashboard</header>
-    <center>
     <div class="main">
-        <div class="data">
+        <div class="sidebar" style="width: 15%;">
+            <h2>Menu</h2>
+            <a href="/">Home</a>
+            <a href="">Plot</a>
+            <a href="">Config</a>
+            <a href="">Dev-Support</a>
+            <a href="">About</a>
+        </div>
+        <h1>Test</h1>
+
+        <div class="humidity">
             <h3>{{ hum }}</h3>
+        </div>
+        <div class="temperature">
             <h3>{{ temp }}</h3>
         </div>
-        <div class="plot">
-            <img src={{ plot }} alt="plot">
-        </div>
-        <a href="/raw_data">See raw data</a>
     </div>
-</center>
 </body>
 </html>

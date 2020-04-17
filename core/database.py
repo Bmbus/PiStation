@@ -5,9 +5,9 @@ class Database:
     def __init__(self):
         try:
             self.connector = mysql.connect(
-                host: "127.0.0.1",
-                user: "root",
-                database: "Tomato",
+                host =  "127.0.0.1",
+                user = "root",
+                database = "Tomato",
                 #password: "your_passwrd"
             )
             self.cursor = self.connector.cursor()
@@ -25,6 +25,16 @@ class Database:
             temperature INT NOT NULL,
             created_at DATETIME NOT NULL
         );""")
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS config (
+            name VARCHAR(55),
+            username VARCHAR(55) DEFAULT 'toto',
+            pin INT,
+            mail VARCHAR(64),
+            password VARCHAR(255) DEFAULT 'tomato',
+            set_password BOOLEAN DEFAULT FALSE,
+            set_email_notify BOOLEAN DEFAULT FALSEC
+        )
+        """)
         self.connector.commit()
     
     def execute(self, query, values=()):

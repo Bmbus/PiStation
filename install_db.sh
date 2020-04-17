@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # install apeche2 webserver
 sudo apt install apache2 -y
 

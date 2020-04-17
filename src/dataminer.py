@@ -1,23 +1,37 @@
 import csv
 from CONFIG import pin
 from datetime import datetime
-import Adafruit_DHT
-from database import DbClient
-from . import utcnow
-
-db = DbClient().collection
-sensor = Adafruit_DHT.DHT22
+#import Adafruit_DHT
+from core import Database
 
 
-def get_h_t() -> dict:
-    hum, temp = Adafruit_DHT.read_retry(sensor, pin)
-    data = {"humidity": hum.round(2), "temperature": temp.round(2), "timestamp": utcnow()}
-    push_to_db(hum, temp, utcnow())
-    return data
+#sensor = Adafruit_DHT.DHT22
+db = Database()
 
-def push_to_db(hum, temp, timestamp):
-    push_data_hum = {"humidity": hum.round(2), "timestamp": utcnow()}
-    push_data_temp = {"temperature": temp.round(2), "timestamp": utcnow()}
-    db.update({"_id": 00}, {"$push": {"humidity": push_data_hum}})
-    db.update({"_id": 00}, {"$push": {"temp": push_data_temp}})
-    return
+class Dataminer:
+
+    def get_h_t(self) -> dict:
+        #hum, temp = Adafruit_DHT.read_retry(sensor, pin)
+        hum, temp  = 22.13123, 50.38293
+        data = {"humidity": round(hum, 2), "temperature": round(temp, 2), "timestamp": self.utcnow()}
+        self.push_to_db(data)
+        self.push_to_csv(data)
+        return data
+
+    @staticmethod
+    def push_to_db(data: dict):
+        return
+
+    @staticmethod
+    def push_to_csv(data:dict):
+        fieldnames = ["humidity", "temperature", "timestamp"]
+        dir = "./src/csv/data.csv"
+
+        with open(dir, "w") as file:
+            writer = csv.DictWriter(file, fieldnames)
+            writer.writeheader()
+            writer.writerow(data)
+
+    @staticmethod
+    def utcnow():
+        return datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")

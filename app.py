@@ -1,14 +1,18 @@
 from flask import Flask, render_template, jsonify, redirect, url_for
-from src.dataminer import get_h_t
-from core.database import Database
+from src.dataminer import Dataminer
+from core import Database
 
 app = Flask(__name__)
 db = Database()
+dm = Dataminer()
 
+@app.route("/login")
+def login():
+    return render_template("login.html", title="Tomato | Login")
 
 @app.route("/")
 def index():
-    return render_template("index.html", hum=get_h_t()["humidity"], temp=get_h_t()["temperature"])
+    return render_template("index.html", hum=dm.get_h_t()["humidity"], temp=dm.get_h_t()["temperature"], title="Tomato")
 
 @app.route("/raw_data")
 def raw_data():
@@ -16,7 +20,7 @@ def raw_data():
 
 @app.route("/init")
 def init():
-    db.init_db()
+    db.setup()
     return redirect(url_for("index"))
 
 @app.route("/config")
@@ -26,7 +30,7 @@ def config():
 
 if __name__ == "__main__":
     try:
-        db.init_db()
-        app.run(debug=True, port=8080, threaded=True)
+        db.setup()
+        app.run(debug=True, port=8080, threaded=True, host="0.0.0.0")
     except:
-        app.run(debug=True, port=8080, threaded=True)
+        app.run(debug=True, port=8080, threaded=True, host="0.0.0.0")
