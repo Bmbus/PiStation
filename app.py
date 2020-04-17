@@ -12,21 +12,28 @@ def login():
 
 @app.route("/")
 def index():
-    return render_template("index.html", hum=dm.get_h_t()["humidity"], temp=dm.get_h_t()["temperature"], title="Tomato")
+    return render_template("index.html", hum=dm.get_h_t()["humidity"], temp=dm.get_h_t()["temperature"], title="Tomato - Home")
 
-@app.route("/raw_data")
-def raw_data():
-    return render_template("raw_data.html")
-
-@app.route("/init")
-def init():
-    db.setup()
-    return redirect(url_for("index"))
+@app.route("/graphics")
+def graphics():
+    return "Graphics"
 
 @app.route("/config")
 def config():
     return "Config stuff soon"
 
+@app.route("/raw_data")
+def raw_data():
+    return render_template("raw_data.html")
+
+@app.route("/about")
+def about():
+    return "About"
+
+@app.route("/init")
+def init():
+    db.setup()
+    return redirect(url_for("index"))
 
 if __name__ == "__main__":
     try:
