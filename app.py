@@ -6,6 +6,9 @@ app = Flask(__name__)
 db = Database()
 dm = Dataminer()
 
+with open("README.md", "r") as rm:
+    readme = rm.read()
+
 @app.route("/login")
 def login():
     return render_template("login.html", title="Tomato | Login")
@@ -20,19 +23,19 @@ def graphics():
 
 @app.route("/config")
 def config():
-    return "Config stuff soon"
+    return render_template("config.html", title="Tomato - Config")
 
 @app.route("/raw_data")
 def raw_data():
-    return render_template("raw_data.html")
+    return render_template("raw_data.html", title="Tomato - RawData")
 
 @app.route("/log")
 def logging():
-    return
+    return render_template("log.html", title="Tomato - Log")
 
 @app.route("/about")
 def about():
-    return "About"
+    return render_template("about.html", title="Tomato - About", readme=readme)
 
 @app.route("/init")
 def init():
