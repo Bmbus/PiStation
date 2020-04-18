@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="static/style.css">
     {% if title %}
         <title>{{ title }}</title>
     {% else %}
@@ -10,8 +10,19 @@
     {% endif %}
 </head>
 <body>
-    <header>
-        <h2>{{ title }}</h2>
-    </header>
+    <div class="header">
+        <center><h1>{{ title }}</h1></center>
+    </div>
+    <div class="sidebar">
+        <a href="/">Home</a>
+        <a href="/graphics">Graphics</a>
+        <a href="/config">Config</a>
+        <a href="/raw_data">Raw Data</a>
+        <a href="/log">Log</a>
+        <a href="/about">About</a>
+    </div>
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
