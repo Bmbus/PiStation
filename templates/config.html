@@ -2,12 +2,14 @@
 
 {% extends "layout.html" %}
 {% block content %}
-<form action="">
-    <input type="text" placeholder="Username">
-    <input type="text" placeholder="Email">
-    <input type="text" name="" id="" placeholder="Pin">
-    <input type="checkbox" placeholder="Set password">
-    <input type="checkbox" name="" id="" placeholder="Set email notify">
+<form action="/config/update", method="post">
+    <input type="text" placeholder="Username" name="username" id="username"><br>
+    <input type="text" placeholder="Email" name="email" id="email"><br>
+    <input type="text" name="pin" id="pin" placeholder="Pin"><br>
+    <label for="set_password">Enable password</label><br>
+    <input type="checkbox" placeholder="Set password" name="set_password" id="set_password"><br>
+    <label for="email_notidy">Enable E-Mail notify</label><br>
+    <input type="checkbox" name="email_notify" id="email_notify" placeholder="Set email notify"><br>
     <input type="submit" value="Submit!">
 </form>
 {% endblock content %}
