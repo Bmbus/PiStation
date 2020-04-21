@@ -31,7 +31,7 @@ def raw_data():
 
 @app.route("/log")
 def logging():
-    return render_template("log.html", title="Tomato - Log")
+    return render_template("log.html", title="Tomato - Log", log=dm.read_csv())
 
 @app.route("/about")
 def about():

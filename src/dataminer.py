@@ -35,3 +35,14 @@ class Dataminer:
     @staticmethod
     def utcnow():
         return datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    
+    @staticmethod
+    def read_csv() -> list:
+        csv_values = []
+        with open("src/csv/data.csv", "r") as cf:
+            csvreader = csv.DictReader(cf)
+            for raw in csvreader:
+                data = {"humidity": raw["humidity"], "temperature": raw["temperature"], "timestamp": raw["timestamp"]}
+                csv_values.append(data)
+        
+        return csv_values
