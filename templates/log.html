@@ -9,9 +9,11 @@
         <th>Timestamp</th>
     </tr>
     {% for data in log %}
+    <tr>
         <td>{{ data.humidity }}</td>
         <td>{{ data.temperature }}</td>
         <td>{{ data.timestamp }}</td>
+    </tr>
     {% endfor %}
 </table>
 {% endblock content %}
