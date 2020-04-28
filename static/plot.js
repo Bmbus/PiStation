@@ -1,19 +1,23 @@
-var xlabels = []
-var ydata = []
+var xlabels_hum_today = []
+var ylabels_hum_today = []
+//var xlabels_hum_week = []
+//var ylabels_hum_week = []
+//var xlabels_hum_all = []
+//var ylabels_hum_all = []
 
-createPlot()
+humidityPlotToday()
 
-async function createPlot() {
+async function humidityPlotToday() {
     await getCsvData()
-    console.log(xlabels)
+    console.log(xlabels_hum_today)
     var ctx = document.getElementById('chart').getContext('2d');
     const myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: xlabels,
+            labels: xlabels_hum_today,
             datasets: [{
                 label: 'Humidity in Hours',
-                data: ydata,
+                data: ylabels_hum_today,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -56,13 +60,13 @@ async function getCsvData() {
         const timestamp = columns[2]
         if (timestamp != undefined) {
             const hour = timestamp.split(" ")[1].split(":")[0]
-            console.log(hour)
-            xlabels.push(hour)
-            console.log(xlabels);
-            
+            if (xlabels_hum_today.includes(hour) != true) {
+                xlabels_hum_today.push(hour)
+            } // TODO durchschnitt für gleiche uhrzeit ausrechnen
         }
         if (hum != undefined) {
-            ydata.push(hum)
+            ylabels_hum_today.push(hum)
         }
+
     })
 }
